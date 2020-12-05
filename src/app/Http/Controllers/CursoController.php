@@ -45,6 +45,8 @@ class CursoController extends Controller
     public function show($id)
     {
         //
+        $curso = Curso::find($id);
+        return $curso;
     }
 
     /**
@@ -58,6 +60,10 @@ class CursoController extends Controller
         //
     }
 
+    public function listarCursos($id){
+        
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -67,7 +73,12 @@ class CursoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $curso = Curso::find($id);
+        $curso->nombre = $request->nombre;
+        $curso->fecha_inicio = $request->fecha_inicio;
+        $curso->fecha_fin = $request->fecha_fin;
+        $curso->save();
+        return redirect()->action([CursoController::class, 'index']);
     }
 
     /**
@@ -78,6 +89,8 @@ class CursoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $curso = Curso::find($id);
+        $curso->delete();
+        return redirect()->action([CursoController::class, 'index']);
     }
 }

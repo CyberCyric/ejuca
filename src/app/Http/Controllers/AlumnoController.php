@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Alumno;
 
 class AlumnoController extends Controller
 {
@@ -13,7 +14,9 @@ class AlumnoController extends Controller
      */
     public function index()
     {
-        //
+        $alumnos = Alumno::all();
+        return view('alumnos-list',compact('alumnos'));
+
     }
 
     /**
@@ -34,7 +37,12 @@ class AlumnoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $alumno = new Alumno();
+        $alumno->nombre = $request->nombre;
+        $alumno->apellido = $request->apellido;
+        $alumno->matricula = $request->matricula;
+        $alumno->save();
+        return redirect()->action([AlumnoController::class, 'index']);
     }
 
     /**
@@ -45,7 +53,8 @@ class AlumnoController extends Controller
      */
     public function show($id)
     {
-        //
+        $alumno = Alumno::find($id);
+        return $alumno;
     }
 
     /**
@@ -68,7 +77,12 @@ class AlumnoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $alumno = Alumno::find($id);
+        $alumno->nombre = $request->nombre;
+        $alumno->apellido = $request->apellido;
+        $alumno->matricula = $request->matricula;
+        $alumno->save();
+        return redirect()->action([AlumnoController::class, 'index']);
     }
 
     /**
@@ -79,6 +93,8 @@ class AlumnoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $alumno = Alumno::find($id);
+        $alumno->delete();
+        return redirect()->action([AlumnoController::class, 'index']);
     }
 }

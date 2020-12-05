@@ -13,12 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
+Auth::routes();
 Route::resource('/cursos', 'App\Http\Controllers\CursoController')->middleware('auth');
 Route::resource('/alumnos', 'App\Http\Controllers\AlumnoController')->middleware('auth');
-Auth::routes();
+Route::get('/inscribir', 'App\Http\Controllers\CursoController@listarCursos')->middleware('auth')->name('inscribir');
+Route::post('/inscribir', 'App\Http\Controllers\CursoController@inscribir')->middleware('auth');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

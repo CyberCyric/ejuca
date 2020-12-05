@@ -17,7 +17,7 @@ class CreateAlumnosTable extends Migration
             $table->id();
             $table->string('nombre');
             $table->string('apellido');
-            $table->bigInteger('nro_documento');
+            $table->bigInteger('matricula');
             $table->timestamps();
         });
     }

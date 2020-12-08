@@ -55,9 +55,6 @@ table.table tr th, table.table tr td {
 	padding: 12px 15px;
 	vertical-align: middle;
 }
-table.table tr th:last-child {
-	width: 200px;
-}
 table.table-striped tbody tr:nth-of-type(odd) {
 	background-color: #fcfcfc;
 }
@@ -75,8 +72,6 @@ table.table td:last-child i {
 	margin: 0 5px;
 }
 table.table td a {
-	font-weight: bold;
-	color: #566787;
 	display: inline-block;
 	text-decoration: none;
 	outline: none !important;

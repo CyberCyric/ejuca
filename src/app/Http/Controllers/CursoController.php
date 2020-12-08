@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\Curso;
+use App\Models\Alumno;
 
 class CursoController extends Controller
 
@@ -61,7 +63,29 @@ class CursoController extends Controller
     }
 
     public function listarCursos($id){
-        
+        $alumno = Alumno::find($id);
+        $cursos = Curso::all();
+        return view('cursos-inscripcion', compact('cursos','alumno'));
+    }
+
+    public function inscribir(Request $request){
+        DB::table('curso_alumno')->where('alumno_id',$request->alumno_id)->delete();
+        if ($request->curso_id){
+            foreach ($request->curso_id as $curso_id) {
+                DB::table('curso_alumno')->insert(
+                    ['curso_id' => $curso_id, 'alumno_id' => $request->alumno_id]
+                );
+            }
+        }
+        return redirect('alumnos/');
+    }
+
+    public function listarInscripciones($id){
+        $inscripciones = DB::table('curso_alumno')
+            ->where('alumno_id',$id)
+            ->get();
+        $json = json_encode($inscripciones);
+        return  $json;  
     }
 
     /**

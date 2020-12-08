@@ -14,10 +14,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Auth::routes();
+Route::get('/cursos_alumno/{id}', 'App\Http\Controllers\CursoController@listarCursos')->middleware('auth')->name('inscribir');
+Route::get('/inscripciones/{id}', 'App\Http\Controllers\CursoController@listarInscripciones')->middleware('auth')->name('inscribir');
+Route::post('/cursos_alumno/inscribir', 'App\Http\Controllers\CursoController@inscribir')->middleware('auth');
+
 Route::resource('/cursos', 'App\Http\Controllers\CursoController')->middleware('auth');
 Route::resource('/alumnos', 'App\Http\Controllers\AlumnoController')->middleware('auth');
-Route::get('/inscribir', 'App\Http\Controllers\CursoController@listarCursos')->middleware('auth')->name('inscribir');
-Route::post('/inscribir', 'App\Http\Controllers\CursoController@inscribir')->middleware('auth');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
